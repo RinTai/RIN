@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
     //以下为子弹特效
     public GameObject destroyEffect;//子弹销毁的特效
     public GameObject attackEffect;//攻击到玩家的特效
-    
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();//获取玩家位置
@@ -31,14 +31,13 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);//销毁子弹
         }
     }
-    private void OnCollsionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            Instantiate(attackEffect, transform.position, Quaternion.identity);//生成攻击特效
-            //GameObject.Find("Player").GetComponent<Player>().beAttackedByBullet();//获取位置信息后被击中
-            collision.gameObject.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
-            Destroy(gameObject);//销毁特效
-        }
-    }
+    //private void OnCollsionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.tag == "Player")
+    //    {
+    //        Instantiate(attackEffect, transform.position, Quaternion.identity);//生成攻击特效
+    //        Debug.Log("Attack");
+    //        Destroy(gameObject);//销毁特效
+    //    }
+    //}
 }

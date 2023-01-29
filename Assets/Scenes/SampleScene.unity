@@ -6778,6 +6778,8 @@ MonoBehaviour:
   lowJumpMultiplier: 4
   fallMultiplierElse: 4
   jumpCount: 2
+  destroyEffect: {fileID: 3225949665760762867, guid: e9666ed92ba349446965b827a86f71dc, type: 3}
+  attackEffect: {fileID: 786362247086446098, guid: 54f889143c8e14044a44ae1e562e80b3, type: 3}
   player_0: {fileID: 1451305057}
   farAttackEnemy: {fileID: 1969444030}
   anim: {fileID: 1451305055}

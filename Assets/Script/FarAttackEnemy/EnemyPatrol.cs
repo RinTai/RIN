@@ -18,8 +18,6 @@ public class EnemyPatrol : MonoBehaviour
     public Transform shotPlace;
     //以下为计时器
     public float timer;
-    //以下为获取目标物理材质
-    public GameObject enemy;
     
 
     void Start()

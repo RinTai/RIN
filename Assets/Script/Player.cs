@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     //以下为多段跳功能的实现
     public int jumpCount = 2;//跳跃次数
     private bool isJump;//表示跳跃状态
+    //以下为子弹特效
+    public GameObject destroyEffect;//子弹销毁的特效
+    public GameObject attackEffect;//攻击到玩家的特效
     //以下为远程敌人攻击到玩家时玩家受击后撤的功能实现
     public Transform player_0;//获取玩家的位置组件
     public Transform farAttackEnemy;//获取敌人的位置组件
@@ -127,6 +130,13 @@ public class Player : MonoBehaviour
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
                 direction_e_p = 1;
             GetComponent<SpriteRenderer>().color = Color.red;
+            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+            if(collision.gameObject.tag == "Bullet")
+            {
+                Instantiate(attackEffect, transform.position, Quaternion.identity);//生成攻击特效
+                Debug.Log("Attack");
+                Destroy(collision.gameObject);//销毁子弹
+            }
             rb.AddForce(new Vector2(direction_e_p * Force, 2f), ForceMode2D.Impulse);
         }
 
