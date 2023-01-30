@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject itemButton;
+
 
     private void Start()
     {
@@ -21,10 +23,10 @@ public class Pickup : MonoBehaviour
             {
                 if (inventory.isFull[i] == false)
                 {
-                    inventory.isFull[i] = true;//拾取道具后判定为已拾取
-                    Destroy(gameObject);//拾取后销毁地图中的道具
-                    Instantiate(itemButton, inventory.slots[i].transform, false);//生成按钮在图片位置                   
-                    break;
+                     Destroy(gameObject);//拾取后销毁地图中的道具
+                     inventory.isFull[i] = true;//拾取道具后判定为已拾取
+                     Instantiate(itemButton, inventory.slots[i].transform, false);//生成按钮在图片位置
+                     break;
                 }              
             }
         }

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6393705327221505797}
   - component: {fileID: 6393705327221505798}
   - component: {fileID: 6393705327221505799}
-  m_Layer: 0
+  - component: {fileID: 1935419695}
+  m_Layer: 11
   m_Name: Melon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6393705327221505800}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.157438, y: -0.3836527, z: 0.015668701}
-  m_LocalScale: {x: 2.3226213, y: 1.8397, z: 1.8397}
+  m_LocalScale: {x: 3.496953, y: 2.664345, z: 2.664345}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,9 +100,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.18772149}
+  m_Offset: {x: -0.006710922, y: 0.16902123}
   serializedVersion: 2
-  m_Radius: 0.3122785
+  m_Radius: 0.24823289
 --- !u!114 &6393705327221505799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,3 +116,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemButton: {fileID: 455157491426133841, guid: 2b8d4cce2ec883343a8014becc9f1256, type: 3}
+--- !u!114 &1935419695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6393705327221505800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9c8629a30a0a843a145293fe766d3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3

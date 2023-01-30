@@ -6780,6 +6780,8 @@ MonoBehaviour:
   jumpCount: 2
   destroyEffect: {fileID: 3225949665760762867, guid: e9666ed92ba349446965b827a86f71dc, type: 3}
   attackEffect: {fileID: 786362247086446098, guid: 54f889143c8e14044a44ae1e562e80b3, type: 3}
+  flashes: 8
+  duration: 1.5
   player_0: {fileID: 1451305057}
   farAttackEnemy: {fileID: 1969444030}
   anim: {fileID: 1451305055}
@@ -8041,7 +8043,6 @@ MonoBehaviour:
   bullet: {fileID: 4790041275169049990, guid: 2ff784121008d4244aba15dd4de2ca0e, type: 3}
   shotPlace: {fileID: 1460058847}
   timer: 0
-  enemy: {fileID: 1969444024}
 --- !u!1 &2070818523
 GameObject:
   m_ObjectHideFlags: 0
@@ -8314,7 +8315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3344132550364936044, guid: 606c336563eef7840a95d3788c9fe4d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.53999996
+      value: -0.5851
       objectReference: {fileID: 0}
     - target: {fileID: 3344132550364936044, guid: 606c336563eef7840a95d3788c9fe4d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8369,18 +8370,6 @@ PrefabInstance:
     - target: {fileID: 6393705327221505796, guid: 22d2bc73891e16f419ce95fb05779912, type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393705327221505796, guid: 22d2bc73891e16f419ce95fb05779912, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3.496953
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393705327221505796, guid: 22d2bc73891e16f419ce95fb05779912, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.664345
-      objectReference: {fileID: 0}
-    - target: {fileID: 6393705327221505796, guid: 22d2bc73891e16f419ce95fb05779912, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.664345
       objectReference: {fileID: 0}
     - target: {fileID: 6393705327221505796, guid: 22d2bc73891e16f419ce95fb05779912, type: 3}
       propertyPath: m_LocalPosition.x
