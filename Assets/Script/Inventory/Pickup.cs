@@ -7,6 +7,7 @@ public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject itemButton;
+    int i = 0;
 
     private void Start()
     {
@@ -17,13 +18,13 @@ public class Pickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))//对比标签
         {
-            for(int i = 0; i < inventory.slots.Length; i++)//遍历槽
+            for(i = 0; i < inventory.slots.Length; i++)//遍历槽
             {
                 if (inventory.isFull[i] == false)
                 {
-                    inventory.isFull[i] = true;//拾取道具后判定为已拾取
+                    Instantiate(itemButton, inventory.slots[i].transform, false);//生成按钮在图片位置       
                     Destroy(gameObject);//拾取后销毁地图中的道具
-                    Instantiate(itemButton, inventory.slots[i].transform, false);//生成按钮在图片位置                   
+                    inventory.isFull[i] = true;//拾取道具后判定为已拾取
                     break;
                 }              
             }

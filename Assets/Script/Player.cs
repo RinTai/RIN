@@ -156,9 +156,9 @@ public class Player : MonoBehaviour
             dashtimeleft -= Time.deltaTime * 2;
             if (dashtimeleft < 0)
             {
-                isdash = false;
-                Wantdash = false;
                 this.gameObject.layer = 6;
+                isdash = false;
+                Wantdash = false;           
             }
         }
     }
