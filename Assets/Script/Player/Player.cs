@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     int Dashdirection;
     float Force = 5f;
     bool Wantdash = false;
-    bool isattack = false;
+    bool isAttack = false;
     //以下为跳跃检测
     [Range(1, 10)]
     private float jumpSpeed = 8f;
@@ -48,10 +48,11 @@ public class Player : MonoBehaviour
     public Transform farAttackEnemy;//获取敌人的位置组件
     private float BeattackTime = 0.2f;//受击时长
     private float beattackcd = 2f;//被连续击中后的免疫时间
-    public Animator anim;//静态解决方案
     public GameObject N_hitbox_1, N_hitbox_2, N_hitbox_3;
     bool beattack = false;
     int direction_e_p = 0;
+    //以下为角色动画
+    public Animator animator;//角色的状态机
     private void Awake()
     {
         player = this;
@@ -68,7 +69,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         transfor = this.gameObject.transform.position;
-        PlayerMove();
         if (!beattack)
         {
             if (!isdash)//玩家行动在这里面写0.0
@@ -77,13 +77,14 @@ public class Player : MonoBehaviour
                 MoveObject();
                 if (Input.GetKeyDown(KeyCode.J))//攻击
                 {
-                    isattack = true;
-                    anim.SetBool("PrepareAttack", true);
-                    Debug.Log("succeesful attack");
+                    isAttack = true;
+                    NormalAttack();//正在攻击                  
                 }
-                //正在攻击
-                NormalAttack();
-                Debug.Log(isattack);
+                else
+                {
+                    isAttack = false;
+                    animator.SetBool("IsAttack", false);//攻击动画的转向
+                }             
             }
             if (Input.GetKeyDown(KeyCode.L))
                 if (Time.time >= (dashLast + dashCD))
@@ -100,8 +101,6 @@ public class Player : MonoBehaviour
             {
                 beattack = false;
                 BeattackTime = 0.2f;
-                GetComponent<SpriteRenderer>().color = Color.white;
-                anim.SetInteger("MOVE", 0);
             }
         }
     }
@@ -109,10 +108,11 @@ public class Player : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);//地面检测
     }
-    public void MoveObject()
+    public void MoveObject()//检测玩家的朝向的基础移动
     {       
         inputpos = rb.velocity;
         inputpos.x = Input.GetAxisRaw("Horizontal") * speed;
+        animator.SetFloat("SpeedX",Mathf.Abs(inputpos.x));//行走动画的转向
         rb.velocity = inputpos;
         if (inputpos.x < 0)
         {
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
         }
         rb.transform.localScale = Playertran;
     }
-    private void OnCollisionEnter2D(Collision2D collision)//玩家的受击！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+    private void OnCollisionEnter2D(Collision2D collision)//玩家的受击
     {
         if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet")// 角色受击！！！！！
         {
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
                 direction_e_p = 1;
             //GetComponent<SpriteRenderer>().color = Color.red;
-            StartCoroutine(BeAttackedInvincibleTime());
+            StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
             this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
             if(collision.gameObject.tag == "Bullet")
             {
@@ -187,6 +187,8 @@ public class Player : MonoBehaviour
     void PlayerJumpByTwice()//二段跳
     {
         moveJump = Input.GetButtonDown("Jump");
+        animator.SetFloat("SpeedY", inputpos.y);//跳跃动画的转向
+        animator.SetBool("IsJump", true);//跳跃动画的转向
         JumpDetectionByTwice();
         //我是分界线，以下为优化跳跃手感内容
         if (Input.GetButtonDown("Jump") && rb.velocity.y < 0 && jumpCount > 0)
@@ -216,85 +218,17 @@ public class Player : MonoBehaviour
         if (isGround)//判断是否在地面
         {
             jumpCount = (int)2f;//四舍五入为2
+            animator.SetBool("IsJump", false);//跳跃动画的转向
         }
         if (isJump)
         {
             jumpCount--;//这里有点问题，第一次跳跃时无法检测到跳跃，二段跳时才能检测到，如果要使用二段跳动画的话直接在这里加上调用二段跳动画就可以了
             rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             jumpCount--;
-            isJump = false;
+            isJump = false;            
         }
     }
-    void Hitbox_use(GameObject hitbox)
-    {
-        hitbox.SetActive(true);
-    }
-    void Hitbox_clear(GameObject hitbox)
-    {
-        hitbox.SetActive(false);
-    }
-    void NormalAttack()//攻击
-    {
-        switch (anim.GetFloat("ATTACK"))
-        {
-            case 1:
-                {
-                    Hitbox_clear(N_hitbox_3);
-                    Hitbox_use(N_hitbox_1);
-                    break;
-                }
-            case 2:
-                {
-                    Hitbox_clear(N_hitbox_1);
-                    Hitbox_use(N_hitbox_2);
-                    break;
-                }
-            case 3:
-                {
-                    Hitbox_clear(N_hitbox_1);
-                    Hitbox_clear(N_hitbox_2);
-                    Hitbox_use(N_hitbox_3);
-                    break;
-                }
-            default:
-                isattack = false;
-                Hitbox_clear(N_hitbox_3);
-                Hitbox_clear(N_hitbox_2);
-                Hitbox_clear(N_hitbox_1);
-                break;
-
-        }
-    }
-    /*public void beAttackedByBullet()//检测受到子弹的攻击
-    {
-        beattack = true;
-        GetComponent<SpriteRenderer>().color = Color.red;
-        if (player_0.position.x >= farAttackEnemy.position.x)
-        {
-            Debug.Log("向右飞");
-            rb.AddForce(new Vector2(200, 5), ForceMode2D.Force);
-        }
-        else if (player_0.position.x < farAttackEnemy.position.x)
-        {
-            Debug.Log("向左飞");
-            rb.AddForce(new Vector2(-200, 5), ForceMode2D.Force);
-        }*/
-    
-    public void PlayerMove()
-    {
-        if (rb.velocity.x == 0)
-            anim.SetInteger("MOVE", 0);
-        if (!isdash && rb.velocity.x != 0)
-        {
-            anim.SetInteger("MOVE", 1);
-            Debug.Log("IS MOVING");
-        }
-        if (isdash)
-            anim.SetInteger("MOVE", 2);
-        if (beattack)
-            anim.SetInteger("MOVE", 2);
-
-    }
+  
     public void PlayerBeAttacking()//碰到怪物了
     {
 
@@ -317,5 +251,9 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreLayerCollision(6, 10, false);
     }
 
+    private void NormalAttack()//普通公鸡
+    {
+        animator.SetBool("IsAttack", true);//攻击动画的转向
+    }
 }
    
