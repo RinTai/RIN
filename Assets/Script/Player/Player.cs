@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     bool isdash = false;//是否冲刺
     float dashtime = 0.2f;
     float dashtimeleft, dashCD = 1f, dashLast = -10f;
-    float dashspeed = 40f;
+    float dashspeed = 50f;
     int Dashdirection;
     float Force = 5f;
     bool Wantdash = false;
@@ -160,7 +160,8 @@ public class Player : MonoBehaviour
         if (isdash)
         {
             dashtimeleft -= Time.deltaTime * 2;
-            if (dashtimeleft < 0)
+            ShadowPool.instance.GetFormPool();//调用对象池
+            if (dashtimeleft <= 0)
             {
                 isdash = false;
                 Wantdash = false;
