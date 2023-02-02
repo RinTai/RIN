@@ -47,12 +47,15 @@ public class Player : MonoBehaviour
     public Transform player_0;//获取玩家的位置组件
     public Transform farAttackEnemy;//获取敌人的位置组件
     private float BeattackTime = 0.2f;//受击时长
-    private float beattackcd = 2f;//被连续击中后的免疫时间
-    public GameObject N_hitbox_1, N_hitbox_2, N_hitbox_3;
     bool beattack = false;
     int direction_e_p = 0;
     //以下为角色动画
     public Animator animator;//角色的状态机
+    //以下为角色武器
+    public GameObject hitbox;//徒手近战
+    //以下为攻击计时器
+    public float attackTimer;//攻击时间
+
     private void Awake()
     {
         player = this;
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour
         inputpos = new Vector2();
         Playertran = rb.transform.localScale;
         sr = gameObject.GetComponent<SpriteRenderer>();//颜色组件
+        hitbox.SetActive(false);//禁用武器
     }
     void Update()
     {
@@ -78,12 +82,14 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.J))//攻击
                 {
                     isAttack = true;
-                    NormalAttack();//正在攻击                  
+                    NormalAttack();//正在攻击
+                                   
                 }
                 else
                 {
-                    isAttack = false;
-                    animator.SetBool("IsAttack", false);//攻击动画的转向
+                    //isAttack = false;
+                    //animator.SetBool("IsAttack", false);//攻击动画的转向
+                    //hitbox.SetActive(false);//启用武器
                 }             
             }
             if (Input.GetKeyDown(KeyCode.L))
@@ -255,6 +261,22 @@ public class Player : MonoBehaviour
     private void NormalAttack()//普通公鸡
     {
         animator.SetBool("IsAttack", true);//攻击动画的转向
+        hitbox.SetActive(true);//启用武器
+        isAttack = true;//bool值
+        StartCoroutine(TimeRecord());
+    }                   
+
+    IEnumerator TimeRecord()//携程记录攻击时间
+    {
+        yield return new WaitForSeconds(0.22f);
+        StopNormalAttack();
+    }
+
+    void StopNormalAttack()//停止攻击
+    {
+        isAttack = false;
+        animator.SetBool("IsAttack", false);//攻击动画的转向
+        hitbox.SetActive(false);//启用武器
     }
 }
    

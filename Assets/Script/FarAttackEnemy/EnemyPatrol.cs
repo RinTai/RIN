@@ -18,13 +18,13 @@ public class EnemyPatrol : MonoBehaviour
     public Transform shotPlace;
     //以下为计时器
     public float timer;
-    
 
     void Start()
     {
         rb_FarAttackEnemy = GetComponent<Rigidbody2D>();
         wayPointTarget = wayPoint01;//初始化朝向
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();//找到玩家的位置
+
     }
     void Update()
     {
@@ -68,5 +68,12 @@ public class EnemyPatrol : MonoBehaviour
             timer = 0;
             Instantiate(bullet, shotPlace.position, transform.rotation);//生成子弹（锁定帧数120的情况下为发射一个子弹）
         }       
+    }
+    private void OnCollisionEnter2D(Collision2D collision)//玩家的受击
+    {
+        if(collision.gameObject.tag == "Hitbox")
+        {
+            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+        }
     }
 }
