@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
+    public bool isSkill;//是否在技能中
+    public BOW bow;//弓的脚本
+    public  int WeapenStyle = 2;
     public static Player player;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     public float speed = 5f;
     public float h = 5;
     public float g = 10f;
     float v;
     Vector2 inputpos;
     public static Vector2 transfor;
-    Vector3 Playertran;
+    public Vector3 Playertran;//玩家的朝向
     bool isdash = false;//是否冲刺
     float dashtime = 0.2f;
     float dashtimeleft, dashCD = 1f, dashLast = -10f;
@@ -73,7 +77,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         transfor = this.gameObject.transform.position;
-        if (!beattack)
+        if (!beattack&&!isSkill)
         {
             if (!isdash)//玩家行动在这里面写0.0
             {
@@ -171,7 +175,7 @@ public class Player : MonoBehaviour
             {
                 isdash = false;
                 Wantdash = false;
-                this.gameObject.layer = 6;
+                Invoke("LayerChange",0.5f);               
             }
         }
     }
@@ -261,7 +265,17 @@ public class Player : MonoBehaviour
     private void NormalAttack()//普通公鸡
     {
         animator.SetBool("IsAttack", true);//攻击动画的转向
-        hitbox.SetActive(true);//启用武器
+        if (WeapenStyle == 1)
+        {
+            Debug.Log("1");
+            Debug.Log(WeapenStyle);
+            hitbox.SetActive(true);//启用武器
+        }
+        if (WeapenStyle == 2)// 弓箭类武器的调用 
+        {
+            Debug.Log("2");
+            bow.Bow.GetComponent<SpriteRenderer>().color= Color.white;
+        }
         isAttack = true;//bool值
         StartCoroutine(TimeRecord());
     }                   
@@ -276,7 +290,11 @@ public class Player : MonoBehaviour
     {
         isAttack = false;
         animator.SetBool("IsAttack", false);//攻击动画的转向
-        hitbox.SetActive(false);//启用武器
+        hitbox.SetActive(false);//启用武器      
+    }
+    void LayerChange()
+    {
+        this.gameObject.layer = 6;
     }
 }
    
