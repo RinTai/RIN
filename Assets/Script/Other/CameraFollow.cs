@@ -10,8 +10,12 @@ public class CameraFollow : MonoBehaviour
     public float way1;
     public float way2;
     // Update is called once per frame
+
+
     void Update()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+
         Vector3 newPos = new Vector3(target.position.x+way1, target.position.y+way2, -10); 
         transform.position = Vector3.Slerp(transform.position, newPos, followSpeed * Time.deltaTime);//让相机的位置跟其保持一致
     }
