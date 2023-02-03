@@ -6,6 +6,7 @@ public class mapGeneration : MonoBehaviour
 {
     public Transform[] startPos;//构建坐标数组
     public GameObject[] rooms;//构建房间数组
+    public GameObject Player;//构建主角
 
     private int direction;
     public float moveAmountX;
@@ -25,6 +26,10 @@ public class mapGeneration : MonoBehaviour
         int startRandPos = Random.Range(0, startPos.Length);//初始位置的随机化
         transform.position = startPos[startRandPos].position;
         Instantiate(rooms[0],transform.position,Quaternion.identity);//生成目标
+
+        Player.transform.position = new Vector3(transform.position.x + 1,transform.position.y + 7,
+            transform.position.z);
+        Instantiate(Player,Player.transform.position,Quaternion.identity);
 
         direction = Random.Range(1, 6);
     }
