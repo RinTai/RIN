@@ -9,7 +9,6 @@ TagManager:
   - Ground
   - Bullet
   - Item
-  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -24,7 +23,7 @@ TagManager:
   - Bullet
   - Item
   - Hitbox
-  - Arrow
+  - 
   - 
   - 
   - 
