@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
@@ -59,6 +61,9 @@ public class Player : MonoBehaviour
     public GameObject hitbox;//徒手近战
     //以下为攻击计时器
     public float attackTimer;//攻击时间
+    //以下为冲刺CD显示的UI组件
+    public UnityEngine.UI.Image CDImage;//CD显示
+
 
     private void Awake()
     {
@@ -113,6 +118,8 @@ public class Player : MonoBehaviour
                 BeattackTime = 0.2f;
             }
         }
+
+        CDImage.fillAmount -= 1.0f/dashCD * Time.deltaTime;//时刻更新CD
     }
     private void FixedUpdate()//固定为每秒50次检测的固定补足更新
     {
@@ -194,6 +201,7 @@ public class Player : MonoBehaviour
         isdash = true;
         dashtimeleft = dashtime;
         dashLast = Time.time;
+        CDImage.fillAmount = 1.0f;//恢复原CD
     }
     void PlayerJumpByTwice()//二段跳
     {

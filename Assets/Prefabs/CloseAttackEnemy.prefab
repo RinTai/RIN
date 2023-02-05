@@ -170,7 +170,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: c5b8999f3ea7d16438a8b1609445e94f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &584729613282419657
 MonoBehaviour:
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player0: {fileID: 0}
   attack: 0
+  animator: {fileID: 0}
 --- !u!70 &584729613282419658
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

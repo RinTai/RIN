@@ -63,8 +63,7 @@ public class EnemyPatrol : MonoBehaviour
     void Shot()
     {
         if(timer % 1.5 > 1&&timer %1.5 <1.01) 
-        {
-            Debug.Log("发射子弹");
+        {       
             timer = 0;
             Instantiate(bullet, shotPlace.position, transform.rotation);//生成子弹（锁定帧数120的情况下为发射一个子弹）
         }       
