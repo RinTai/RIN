@@ -9,7 +9,7 @@ public class BossBullet : MonoBehaviour
 
     void Start()
     {
-        skadiCorrupt = GameObject.FindGameObjectWithTag("SkadiCorruptingHeart").GetComponent<Transform>();//获取敌人位置信息
+        skadiCorrupt = GameObject.FindGameObjectWithTag("Boss").GetComponent<Transform>();//获取敌人位置信息
         Destroy(gameObject, 7f);  //7s后销毁自身
     }
 

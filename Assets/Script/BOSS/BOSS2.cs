@@ -23,7 +23,7 @@ public class BOSS2 : MonoBehaviour
     //以下为瞬间移动
     private float speed = 10000;
     public float continueTime = 10;//停留时间
-    private int moveCount = 0;//瞬移次数
+    public int moveCount = 0;//瞬移次数
     //以下为发射子弹
     public Transform normalFirePosition;//普通开火口
     public Transform firePosition1;//分裂子弹开火口
@@ -56,15 +56,14 @@ public class BOSS2 : MonoBehaviour
         {
             animator.SetBool("IsChangePosition", true);
             moveCount++;
-            if(moveCount == 4)
+            if(moveCount >= 4)
             {
                 Skill1();
-                moveCount = 0;
+                animator.SetBool("IsSkill", true);               
             }
         }
  
     }
-
     private void SuddenMove()//瞬间移动判断
     {      
         isMove = true;

@@ -145,16 +145,23 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)//玩家的受击
     {
-        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet")// 角色受击！！！！！
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"|| collision.gameObject.tag == "BigBullet")// 角色受击！！！！！
         {
             beattack = true;
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x >= 0)
                 direction_e_p = -1;
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
                 direction_e_p = 1;
-            //GetComponent<SpriteRenderer>().color = Color.red;
+
             StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
-            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+            if(collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet")
+            {
+                this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+            }
+            else if(collision.gameObject.tag == "BigBullet")//碰撞到敌人的大子弹时
+            {
+                this.GetComponentInChildren<HpControl>().hp -= 50; //血量减少
+            }
             if(collision.gameObject.tag == "Bullet")
             {
                 Instantiate(attackEffect, transform.position, Quaternion.identity);//生成攻击特效                
@@ -163,6 +170,22 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(direction_e_p * Force, 2f), ForceMode2D.Impulse);
         }
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BossBullet")// boss子弹角色受击
+        {
+            beattack = true;
+            if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x >= 0)
+                direction_e_p = -1;
+            if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
+                direction_e_p = 1;
+
+            StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
+            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+
+            rb.AddForce(new Vector2(direction_e_p * Force, 2f), ForceMode2D.Impulse);
+        }
     }
     void Dash()
     {
@@ -257,6 +280,7 @@ public class Player : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(6, 7, true);//与敌人碰撞时
         Physics2D.IgnoreLayerCollision(6, 10, true);//与子弹碰撞时
+
         sr.color = Color.red;
         yield return new WaitForSeconds(duration / flashes);
         for (int i = 0; i < flashes; i++)
@@ -268,6 +292,7 @@ public class Player : MonoBehaviour
         }
         Physics2D.IgnoreLayerCollision(6, 7, false);
         Physics2D.IgnoreLayerCollision(6, 10, false);
+
     }
 
     private void NormalAttack()//普通公鸡

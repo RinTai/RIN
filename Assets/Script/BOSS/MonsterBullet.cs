@@ -8,11 +8,11 @@ public class MonsterBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject,7f);
+        Destroy(gameObject,4f);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.Translate(0, -Time.deltaTime * speed, 0);  //×Óµ¯Î»ÒÆ
     }
