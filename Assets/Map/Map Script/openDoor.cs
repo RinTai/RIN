@@ -15,10 +15,14 @@ public class openDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             //anim.SetTrigger("open");
             door.surfaceArc = 0f;
+        }
+        else
+        {
+            door.surfaceArc = 360f;
         }
     }
 }

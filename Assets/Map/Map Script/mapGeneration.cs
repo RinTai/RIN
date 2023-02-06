@@ -7,10 +7,13 @@ public class mapGeneration : MonoBehaviour
     public Transform[] startPos;//构建坐标数组
     public GameObject[] rooms;//构建房间数组
     public GameObject Player;//构建主角
+    public GameObject Portal;//传送至boss房间
 
     private int direction;
     public float moveAmountX;
     public float moveAmountY;
+    public float endMoveX;
+    public float endMoveY;
 
     public float startTime = 0.3f;
     private float beginBetweenTime;//房间生成时间
@@ -131,6 +134,9 @@ public class mapGeneration : MonoBehaviour
             else
             {
                 startSpawn = true;
+                Vector3 endPos = new Vector3(transform.position.x + endMoveX, transform.position.y + endMoveY,
+                    transform.position.z);
+                Instantiate(Portal, endPos, Quaternion.identity);
             }
             
         }

@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8324670271899133523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.9, y: 1.85, z: 0}
+  m_LocalPosition: {x: 121, y: 14, z: 0}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -405,6 +405,7 @@ MonoBehaviour:
   animator: {fileID: 8324670271899133522}
   hitbox: {fileID: 1920588254}
   attackTimer: 0
+  CDImage: {fileID: 0}
 --- !u!50 &8324670271899133551
 Rigidbody2D:
   serializedVersion: 4
