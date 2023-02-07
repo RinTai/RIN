@@ -60,7 +60,7 @@ public class EnemyPatrol : MonoBehaviour
             wayPointTarget = wayPoint01;
         }
     }
-    void Shot()
+    public void Shot()
     {
         if(timer % 1.5 > 1&&timer %1.5 <1.01) 
         {       
