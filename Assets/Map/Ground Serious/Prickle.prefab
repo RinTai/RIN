@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5171100924645154941}
   - component: {fileID: 8952596017986628195}
   - component: {fileID: 3173893637983747931}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Prickle
-  m_TagString: Untagged
+  m_TagString: Prickle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.011353493, y: -0.1352036}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,5 +109,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.477293, y: 0.2295928}
   m_EdgeRadius: 0

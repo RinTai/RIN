@@ -13,6 +13,7 @@ TagManager:
   - BossBullet
   - Boss
   - BigBullet
+  - Prickle
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Item
   - Hitbox
   - Room
-  - 
+  - Prickle
   - 
   - 
   - 

@@ -33,8 +33,10 @@ public class Player : MonoBehaviour
     private float jumpSpeed = 8f;
     private bool moveJump;//判断是否按下跳跃
     public bool isGround;//判断是否在地面上
+    public bool isPrickle;//判断是否在地刺上
     public Transform groundCheck;//地面检测
     public LayerMask ground;
+    public LayerMask Prickle;
     //以下为跳跃优化
     public float fallMultiplier = 1000f;//大跳的重力
     public float lowJumpMultiplier = 600f;//小跳的重力
@@ -124,6 +126,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()//固定为每秒50次检测的固定补足更新
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);//地面检测
+        isPrickle = Physics2D.OverlapCircle(groundCheck.position, 0.1f, Prickle);
     }
     public void MoveObject()//检测玩家的朝向的基础移动
     {       
@@ -145,7 +148,8 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)//玩家的受击
     {
-        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"|| collision.gameObject.tag == "BigBullet")// 角色受击！！！！！
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"||
+            collision.gameObject.tag == "BigBullet" || collision.gameObject.tag == "Prickle")// 角色受击！！！！！
         {
             beattack = true;
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x >= 0)
@@ -154,7 +158,8 @@ public class Player : MonoBehaviour
                 direction_e_p = 1;
 
             StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
-            if(collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet")
+            if(collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"
+                || collision.gameObject.tag == "Prickle")
             {
                 this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
             }
@@ -257,7 +262,7 @@ public class Player : MonoBehaviour
         {
             isJump = true;
         }
-        if (isGround)//判断是否在地面
+        if (isGround || isPrickle)//判断是否在地面或地刺
         {
             jumpCount = (int)2f;//四舍五入为2
             animator.SetBool("IsJump", false);//跳跃动画的转向
