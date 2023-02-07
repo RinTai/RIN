@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8324670271899133523}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 121, y: 14, z: 0}
+  m_LocalPosition: {x: -59, y: 14, z: 0}
   m_LocalScale: {x: 1.75, y: 1.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -388,10 +388,14 @@ MonoBehaviour:
   g: 1
   Playertran: {x: 0, y: 0, z: 0}
   isGround: 0
+  isPrickle: 0
   groundCheck: {fileID: 8324670272994864350}
   ground:
     serializedVersion: 2
     m_Bits: 256
+  Prickle:
+    serializedVersion: 2
+    m_Bits: 0
   fallMultiplier: 5
   lowJumpMultiplier: 4
   fallMultiplierElse: 4

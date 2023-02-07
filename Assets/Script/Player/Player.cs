@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate()//固定为每秒50次检测的固定补足更新
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);//地面检测
-        isPrickle = Physics2D.OverlapCircle(groundCheck.position, 0.1f, Prickle);
+        isPrickle = Physics2D.OverlapCircle(groundCheck.position, 0.1f, Prickle);//地刺检测
     }
     public void MoveObject()//检测玩家的朝向的基础移动
     {       
@@ -264,6 +264,7 @@ public class Player : MonoBehaviour
         }
         if (isGround || isPrickle)//判断是否在地面或地刺
         {
+            Debug.Log("1"+(int )jumpCount);
             jumpCount = (int)2f;//四舍五入为2
             animator.SetBool("IsJump", false);//跳跃动画的转向
         }
@@ -285,6 +286,7 @@ public class Player : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(6, 7, true);//与敌人碰撞时
         Physics2D.IgnoreLayerCollision(6, 10, true);//与子弹碰撞时
+        Physics2D.IgnoreLayerCollision(6, 14, true);
 
         sr.color = Color.red;
         yield return new WaitForSeconds(duration / flashes);
@@ -297,6 +299,7 @@ public class Player : MonoBehaviour
         }
         Physics2D.IgnoreLayerCollision(6, 7, false);
         Physics2D.IgnoreLayerCollision(6, 10, false);
+        Physics2D.IgnoreLayerCollision (6, 14, false);
 
     }
 
