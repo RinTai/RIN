@@ -13563,6 +13563,7 @@ Transform:
   - {fileID: 8585091184799581840}
   - {fileID: 5856348246640661637}
   - {fileID: 2824527236293776859}
+  - {fileID: 42358673326344841}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -38282,3 +38283,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obejects:
   - {fileID: 4488353920040498333, guid: 44051d533a3172f4ab8f7163007f865c, type: 3}
+--- !u!1001 &1692251508847951469
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6114288342351817265}
+    m_Modifications:
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.6258554
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.237206
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121143591812251357, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+      propertyPath: m_Name
+      value: Treasure Box
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+--- !u!4 &42358673326344841 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1723305484502840548, guid: 56b56dfe007160f4f90b0094edc4f483, type: 3}
+  m_PrefabInstance: {fileID: 1692251508847951469}
+  m_PrefabAsset: {fileID: 0}

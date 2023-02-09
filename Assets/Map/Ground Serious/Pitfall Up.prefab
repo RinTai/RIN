@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: bullet
       value: 
       objectReference: {fileID: 4790041275169049990, guid: 5cdb58fb3da63274880eb2069348dade, type: 3}
+    - target: {fileID: -1588768459248630075, guid: 820a4c1e51f5c854582074b35d07aed3, type: 3}
+      propertyPath: fireTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 214481402644331933, guid: 820a4c1e51f5c854582074b35d07aed3, type: 3}
       propertyPath: m_Name
       value: Pitfall Left

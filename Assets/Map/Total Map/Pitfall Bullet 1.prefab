@@ -138,7 +138,7 @@ MonoBehaviour:
   lifeTime: 0
   lifeMaxTime: 2.5
   speed: 5
-  moveMax: 4
+  moveMax: 10
   destroyEffect: {fileID: 3225949665760762867, guid: e9666ed92ba349446965b827a86f71dc, type: 3}
   attackEffect: {fileID: 786362247086446098, guid: 54f889143c8e14044a44ae1e562e80b3, type: 3}
   isUp: 0

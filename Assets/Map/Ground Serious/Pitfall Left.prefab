@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 4790041275169049990, guid: a4e124e229ce067428576790cc8f1fd3, type: 3}
   shotPlace: {fileID: 6932383569979328668}
+  fireTime: 2
 --- !u!1 &5138623922739824028
 GameObject:
   m_ObjectHideFlags: 0

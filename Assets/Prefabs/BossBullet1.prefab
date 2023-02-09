@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  boss2: {fileID: 0}
+  skadiCorrupt: {fileID: 0}
