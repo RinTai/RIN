@@ -34,7 +34,7 @@ public class merchantDialog : MonoBehaviour
             }
             else if(dialogAmount >= 2)
             {
-                dialogBoxText.text = dialogs[1];
+                GetDialog(1,dialogs.Length);
                 Invoke("GetItems", waitTime);
             }
         }
@@ -62,5 +62,15 @@ public class merchantDialog : MonoBehaviour
     {
         int rand = Random.Range(0, items.Length);
         Instantiate(items[rand], transform.position, Quaternion.identity);
+    }
+    void GetDialog(int begin,int last)
+    {
+        for(int i = begin;i <= last; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                dialogBoxText.text = dialogs[i];
+            }
+        }
     }
 }
