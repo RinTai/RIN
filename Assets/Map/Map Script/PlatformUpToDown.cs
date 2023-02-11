@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlatformUpToDown : MonoBehaviour
 {
     PlatformEffector2D platform;
+
+    private bool isDown = false;
     void Start()
     {
         platform = GetComponent<PlatformEffector2D>();
@@ -13,7 +15,7 @@ public class PlatformUpToDown : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && isDown)
         {
             platform.rotationalOffset = 180f;
         }
@@ -23,5 +25,18 @@ public class PlatformUpToDown : MonoBehaviour
         }
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isDown= true;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Plyaer"))
+        {
+            isDown= false;
+        }
+    }
 }
