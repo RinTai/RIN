@@ -5,72 +5,57 @@ using UnityEngine.UI;
 
 public class merchantDialog : MonoBehaviour
 {
-    public float waitTime;
-    public GameObject[] items;
+    public static merchantDialog instance; 
 
-    public Image dialogBox;
+    
+
+    public GameObject dialogBox;
     public Text dialogBoxText;
-    public string[] dialogs;
 
-    private bool isDialog;
-    private int dialogAmount = 0;
+    [TextArea(1,3)]
+    public string[] dialogs;
+    public bool isDialog;
+
+    
+
+
+    private int currentLines;
+
+    private void Awake()
+    {
+        instance= this;
+    }
 
     void Start()
     {
-        dialogBox.gameObject.SetActive(false);
+        dialogBox.SetActive(false);
     }
 
     
     void Update()
     {
-        if(isDialog && Input.GetKeyDown(KeyCode.Space))
-        {
-            dialogBox.gameObject.SetActive(true);
-
-            if(dialogAmount == 1)
-            {
-                dialogBoxText.text = dialogs[0];
-                Invoke("GetItems", waitTime);
-            }
-            else if(dialogAmount >= 2)
-            {
-                GetDialog(1,dialogs.Length);
-                Invoke("GetItems", waitTime);
-            }
-        }
-        else if(!isDialog)
-        {
-            dialogBox.gameObject.SetActive(false);
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            dialogAmount++;
-            isDialog = true;
-        }
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isDialog= false;
-        }
-    }
-    void GetItems()
-    {
-        int rand = Random.Range(0, items.Length);
-        Instantiate(items[rand], transform.position, Quaternion.identity);
-    }
-    void GetDialog(int begin,int last)
-    {
-        for(int i = begin;i <= last; i++)
+        
+        
+        if (dialogBox.activeInHierarchy)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                dialogBoxText.text = dialogs[i];
+                currentLines++;
+
+                if (currentLines < dialogs.Length)
+                    dialogBoxText.text = dialogs[currentLines];
+                else
+                    dialogBox.SetActive(false);
             }
         }
     }
+    
+    public void showDialog(string[] newLines)
+    {
+        dialogs = newLines;
+        currentLines = 0;
+        dialogBoxText.text = dialogs[currentLines];
+        dialogBox.SetActive(true);
+    }
+    
 }
