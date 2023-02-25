@@ -15,6 +15,7 @@ TagManager:
   - BigBullet
   - Prickle
   - dialogCenter
+  - Cherries
   layers:
   - Default
   - TransparentFX
