@@ -8,6 +8,14 @@ TagManager:
   - Hitbox
   - Ground
   - Bullet
+  - Item
+  - SkadiCorruptingHeart
+  - BossBullet
+  - Boss
+  - BigBullet
+  - Prickle
+  - dialogCenter
+  - Cherries
   layers:
   - Default
   - TransparentFX
@@ -21,16 +29,16 @@ TagManager:
   - Player-Dashing
   - Bullet
   - Item
+  - Hitbox
+  - Room
+  - Prickle
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Boss
+  - BossMove
   - 
   - 
   - 

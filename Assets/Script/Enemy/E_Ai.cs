@@ -14,7 +14,9 @@ public class E_Ai : MonoBehaviour
     private float tick1 = 2f;
     int temp = 1;
     bool beattack=false;
-  
+    //以下为角色动画
+    public Animator animator;//角色的状态机
+
     void Start()
     {
         rb_e = GetComponent<Rigidbody2D>();

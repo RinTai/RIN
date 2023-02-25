@@ -2,22 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
+    public bool isSkill;//是否在技能中
+    public BOW bow;//弓的脚本
+    public  int WeapenStyle = 2;
     public static Player player;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     public float speed = 5f;
     public float h = 5;
     public float g = 10f;
     float v;
     Vector2 inputpos;
     public static Vector2 transfor;
-    Vector3 Playertran;
+    public Vector3 Playertran;//玩家的朝向
     bool isdash = false;//是否冲刺
     float dashtime = 0.2f;
     float dashtimeleft, dashCD = 1f, dashLast = -10f;
-    float dashspeed = 40f;
+    float dashspeed = 50f;
     int Dashdirection;
     float Force = 5f;
     bool Wantdash = false;
@@ -26,9 +32,11 @@ public class Player : MonoBehaviour
     [Range(1, 10)]
     private float jumpSpeed = 8f;
     private bool moveJump;//判断是否按下跳跃
-    private bool isGround;//判断是否在地面上
+    public bool isGround;//判断是否在地面上
+    public bool isPrickle;//判断是否在地刺上
     public Transform groundCheck;//地面检测
     public LayerMask ground;
+    public LayerMask Prickle;
     //以下为跳跃优化
     public float fallMultiplier = 1000f;//大跳的重力
     public float lowJumpMultiplier = 600f;//小跳的重力
@@ -47,12 +55,19 @@ public class Player : MonoBehaviour
     public Transform player_0;//获取玩家的位置组件
     public Transform farAttackEnemy;//获取敌人的位置组件
     private float BeattackTime = 0.2f;//受击时长
-    private float beattackcd = 2f;//被连续击中后的免疫时间
-    public GameObject N_hitbox_1, N_hitbox_2, N_hitbox_3;
     bool beattack = false;
     int direction_e_p = 0;
     //以下为角色动画
     public Animator animator;//角色的状态机
+    //以下为角色武器
+    public GameObject hitbox;//徒手近战
+    //以下为攻击计时器
+    public float attackTimer;//攻击时间
+    //以下为冲刺CD显示的UI组件
+    public UnityEngine.UI.Image CDImage;//CD显示
+
+
+
     private void Awake()
     {
         player = this;
@@ -65,25 +80,29 @@ public class Player : MonoBehaviour
         inputpos = new Vector2();
         Playertran = rb.transform.localScale;
         sr = gameObject.GetComponent<SpriteRenderer>();//颜色组件
+        hitbox.SetActive(false);//禁用武器
     }
     void Update()
     {
         transfor = this.gameObject.transform.position;
-        if (!beattack)
+        if (!beattack&&!isSkill)
         {
             if (!isdash)//玩家行动在这里面写0.0
             {
                 PlayerJumpByTwice();
                 MoveObject();
+
                 if (Input.GetKeyDown(KeyCode.J))//攻击
                 {
                     isAttack = true;
-                    NormalAttack();//正在攻击                  
+                    NormalAttack();//正在攻击
+                                   
                 }
                 else
                 {
-                    isAttack = false;
-                    animator.SetBool("IsAttack", false);//攻击动画的转向
+                    //isAttack = false;
+                    //animator.SetBool("IsAttack", false);//攻击动画的转向
+                    //hitbox.SetActive(false);//启用武器
                 }             
             }
             if (Input.GetKeyDown(KeyCode.L))
@@ -103,10 +122,13 @@ public class Player : MonoBehaviour
                 BeattackTime = 0.2f;
             }
         }
+
+        CDImage.fillAmount += 1.0f/dashCD * Time.deltaTime;//时刻更新CD
     }
     private void FixedUpdate()//固定为每秒50次检测的固定补足更新
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.1f, ground);//地面检测
+        isPrickle = Physics2D.OverlapCircle(groundCheck.position, 0.1f, Prickle);//地刺检测
     }
     public void MoveObject()//检测玩家的朝向的基础移动
     {       
@@ -128,16 +150,25 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)//玩家的受击
     {
-        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet")// 角色受击！！！！！
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"||
+            collision.gameObject.tag == "BigBullet" || collision.gameObject.tag == "Prickle")// 角色受击！！！！！
         {
             beattack = true;
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x >= 0)
                 direction_e_p = -1;
             if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
                 direction_e_p = 1;
-            //GetComponent<SpriteRenderer>().color = Color.red;
+
             StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
-            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+            if(collision.gameObject.tag == "enemy" || collision.gameObject.tag == "Bullet"
+                || collision.gameObject.tag == "Prickle")
+            {
+                this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+            }
+            else if(collision.gameObject.tag == "BigBullet")//碰撞到敌人的大子弹时
+            {
+                this.GetComponentInChildren<HpControl>().hp -= 50; //血量减少
+            }
             if(collision.gameObject.tag == "Bullet")
             {
                 Instantiate(attackEffect, transform.position, Quaternion.identity);//生成攻击特效                
@@ -146,6 +177,22 @@ public class Player : MonoBehaviour
             rb.AddForce(new Vector2(direction_e_p * Force, 2f), ForceMode2D.Impulse);
         }
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "BossBullet")// boss子弹角色受击
+        {
+            beattack = true;
+            if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x >= 0)
+                direction_e_p = -1;
+            if (collision.gameObject.transform.position.x - this.gameObject.transform.position.x < 0)
+                direction_e_p = 1;
+
+            StartCoroutine(BeAttackedInvincibleTime());//启用受击闪烁的携程
+            this.GetComponentInChildren<HpControl>().hp -= 25; //血量减少
+
+            rb.AddForce(new Vector2(direction_e_p * Force, 2f), ForceMode2D.Impulse);
+        }
     }
     void Dash()
     {
@@ -160,11 +207,12 @@ public class Player : MonoBehaviour
         if (isdash)
         {
             dashtimeleft -= Time.deltaTime * 2;
-            if (dashtimeleft < 0)
+            ShadowPool.instance.GetFormPool();//调用对象池
+            if (dashtimeleft <= 0)
             {
                 isdash = false;
                 Wantdash = false;
-                this.gameObject.layer = 6;
+                Invoke("LayerChange",0.5f);               
             }
         }
     }
@@ -183,6 +231,7 @@ public class Player : MonoBehaviour
         isdash = true;
         dashtimeleft = dashtime;
         dashLast = Time.time;
+        CDImage.fillAmount = 0f;//恢复原CD
     }
     void PlayerJumpByTwice()//二段跳
     {
@@ -215,7 +264,7 @@ public class Player : MonoBehaviour
         {
             isJump = true;
         }
-        if (isGround)//判断是否在地面
+        if (isGround || isPrickle)//判断是否在地面或地刺
         {
             jumpCount = (int)2f;//四舍五入为2
             animator.SetBool("IsJump", false);//跳跃动画的转向
@@ -238,6 +287,8 @@ public class Player : MonoBehaviour
     {
         Physics2D.IgnoreLayerCollision(6, 7, true);//与敌人碰撞时
         Physics2D.IgnoreLayerCollision(6, 10, true);//与子弹碰撞时
+        Physics2D.IgnoreLayerCollision(6, 14, true);
+
         sr.color = Color.red;
         yield return new WaitForSeconds(duration / flashes);
         for (int i = 0; i < flashes; i++)
@@ -249,11 +300,43 @@ public class Player : MonoBehaviour
         }
         Physics2D.IgnoreLayerCollision(6, 7, false);
         Physics2D.IgnoreLayerCollision(6, 10, false);
+        Physics2D.IgnoreLayerCollision (6, 14, false);
+
     }
 
     private void NormalAttack()//普通公鸡
     {
         animator.SetBool("IsAttack", true);//攻击动画的转向
+        if (WeapenStyle == 1)
+        {
+            Debug.Log("1");
+            Debug.Log(WeapenStyle);
+            hitbox.SetActive(true);//启用武器
+        }
+        if (WeapenStyle == 2)// 弓箭类武器的调用 
+        {
+            Debug.Log("2");
+            bow.Bow.GetComponent<SpriteRenderer>().color= Color.white;
+        }
+        isAttack = true;//bool值
+        StartCoroutine(TimeRecord());
+    }                   
+
+    IEnumerator TimeRecord()//携程记录攻击时间
+    {
+        yield return new WaitForSeconds(0.22f);
+        StopNormalAttack();
+    }
+
+    void StopNormalAttack()//停止攻击
+    {
+        isAttack = false;
+        animator.SetBool("IsAttack", false);//攻击动画的转向
+        hitbox.SetActive(false);//启用武器      
+    }
+    void LayerChange()
+    {
+        this.gameObject.layer = 6;
     }
 }
    
