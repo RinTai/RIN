@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
     public UnityEngine.UI.Image CDImage;//CD显示
 
 
+
     private void Awake()
     {
         player = this;
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour
             {
                 PlayerJumpByTwice();
                 MoveObject();
+
                 if (Input.GetKeyDown(KeyCode.J))//攻击
                 {
                     isAttack = true;
@@ -121,7 +123,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        CDImage.fillAmount -= 1.0f/dashCD * Time.deltaTime;//时刻更新CD
+        CDImage.fillAmount += 1.0f/dashCD * Time.deltaTime;//时刻更新CD
     }
     private void FixedUpdate()//固定为每秒50次检测的固定补足更新
     {
@@ -229,7 +231,7 @@ public class Player : MonoBehaviour
         isdash = true;
         dashtimeleft = dashtime;
         dashLast = Time.time;
-        CDImage.fillAmount = 1.0f;//恢复原CD
+        CDImage.fillAmount = 0f;//恢复原CD
     }
     void PlayerJumpByTwice()//二段跳
     {
@@ -264,7 +266,6 @@ public class Player : MonoBehaviour
         }
         if (isGround || isPrickle)//判断是否在地面或地刺
         {
-            Debug.Log("1"+(int )jumpCount);
             jumpCount = (int)2f;//四舍五入为2
             animator.SetBool("IsJump", false);//跳跃动画的转向
         }

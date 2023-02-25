@@ -14,10 +14,6 @@ public class merchantDialog : MonoBehaviour
 
     [TextArea(1,3)]
     public string[] dialogs;
-    public bool isDialog;
-
-    
-
 
     private int currentLines;
 
@@ -38,14 +34,19 @@ public class merchantDialog : MonoBehaviour
         
         if (dialogBox.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 currentLines++;
 
                 if (currentLines < dialogs.Length)
+                {
                     dialogBoxText.text = dialogs[currentLines];
+                }  
                 else
+                {
                     dialogBox.SetActive(false);
+                }
+                    
             }
         }
     }
@@ -56,6 +57,7 @@ public class merchantDialog : MonoBehaviour
         currentLines = 0;
         dialogBoxText.text = dialogs[currentLines];
         dialogBox.SetActive(true);
+
     }
     
 }

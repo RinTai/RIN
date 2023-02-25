@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5886907723107785718}
-  - component: {fileID: -7916067894910275994}
   m_Layer: 0
   m_Name: Merchant
   m_TagString: Untagged
@@ -33,22 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-7916067894910275994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965857727137318802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e6338451a1e35468dbf90acadbdc86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitTime: 0
-  items: []
-  Lines: []
-  dialogAmount: 0
 --- !u!1 &2728854072025247845
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,8 +43,9 @@ GameObject:
   - component: {fileID: 1886549815239244019}
   - component: {fileID: 4723309908840264036}
   - component: {fileID: 84466643151140295}
-  - component: {fileID: 4199665790536692765}
-  - component: {fileID: 7839735383224707363}
+  - component: {fileID: 1073840701271075320}
+  - component: {fileID: 8979737549851275523}
+  - component: {fileID: 7629324713624093005}
   m_Layer: 0
   m_Name: SNES - Terranigma - Magishop Merchant_0
   m_TagString: Untagged
@@ -157,7 +141,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!70 &4199665790536692765
+--- !u!70 &1073840701271075320
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,10 +154,10 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.7917062, y: 0.1563865}
-  m_Size: {x: 0.8967664, y: 1.9328268}
+  m_Offset: {x: -0.8147534, y: 0.09552276}
+  m_Size: {x: 0.77842593, y: 1.7224162}
   m_Direction: 0
---- !u!50 &7839735383224707363
+--- !u!50 &8979737549851275523
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -191,9 +175,34 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!114 &7629324713624093005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2728854072025247845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e6338451a1e35468dbf90acadbdc86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitTime: 0
+  items: []
+  Lines:
+  - "\u54C8\u54C8\uFF0C\u77A7\u77A7\u8C01\u6765\u4E86\uFF0C\u2026\u2026\u7B2C\u4E00\u6B21\u6765\u5417\uFF1F\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  - "\u6700\u8FD1\u4ECE\u51E0\u4E2A\u5012\u9709\u86CB\u90A3\u91CC\u641E\u4E86\u70B9\u4E1C\u897F\uFF0C\u6211\u770B\u54B1\u4FE9\u65E2\u7136\u6709\u7F18\uFF0C\u7ED9\u4F60\u70B9\u5C0F\u4E1C\u897F\u5427\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  Lines2:
+  - "\u53C8\u89C1\u5230\u4F60\u4E86\uFF0C\u770B\u6765\u54B1\u4EEC\u786E\u5B9E\u6709\u7F18\uFF0C\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  - "\u8FD9\u6837\u5427\uFF0C\u518D\u7ED9\u4F60\u9001\u70B9\u4E1C\u897F\uFF0C\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  - "\u795D\u4F60\u524D\u8DEF\u5E73\u5B89\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  Lines3:
+  - "\u795D\u4F60\u524D\u8DEF\u5E73\u5B89\uFF08\u6309Enter\u7EE7\u7EED\uFF09"
+  dialogAmount: 0
+  isEntered: 0
 --- !u!1 &3141759577062016070
 GameObject:
   m_ObjectHideFlags: 0

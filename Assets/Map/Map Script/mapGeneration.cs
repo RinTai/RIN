@@ -8,6 +8,8 @@ public class mapGeneration : MonoBehaviour
     public GameObject[] rooms;//构建房间数组
     public GameObject Player;//构建主角
     public GameObject Portal;//传送至boss房间
+    public GameObject dialogCenter;//主角说话位置
+
 
     private int direction;
     public float moveAmountX;
@@ -24,15 +26,23 @@ public class mapGeneration : MonoBehaviour
     public LayerMask room;
     public bool startSpawn = false;//用于地图生成与否
     private int downAmount = 0;
+
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        dialogCenter.SetActive(true);
+
         int startRandPos = Random.Range(0, startPos.Length);//初始位置的随机化
+
         transform.position = startPos[startRandPos].position;
-        Instantiate(rooms[0],transform.position,Quaternion.identity);//生成目标
 
         Player.transform.position = new Vector3(transform.position.x + 1,transform.position.y + 14,
             transform.position.z);
-        Instantiate(Player,Player.transform.position,Quaternion.identity);
+        Instantiate(dialogCenter,Player.transform.position,Quaternion.identity);
+
+        
+        Instantiate(rooms[0], transform.position, Quaternion.identity);//生成目标
 
         direction = Random.Range(1, 6);
     }
@@ -46,6 +56,7 @@ public class mapGeneration : MonoBehaviour
         {
             beginBetweenTime -= Time.deltaTime;
         }
+        
     }
 
     void Move()
@@ -137,7 +148,9 @@ public class mapGeneration : MonoBehaviour
                 Vector3 endPos = new Vector3(transform.position.x + endMoveX, transform.position.y + endMoveY,
                     transform.position.z);
                 Instantiate(Portal, endPos, Quaternion.identity);
+
             }
+            
             
         }
 

@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,10 +6,10 @@ using UnityEngine;
 
 public class mapPortal : MonoBehaviour
 {
-    public GameObject target;
+
+    public Transform target;
     private Transform playerPos;
     private bool isPortal = false;
-
     void Start()
     {
         playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -24,8 +25,9 @@ public class mapPortal : MonoBehaviour
     {
         if (isPortal)
         {
-            playerPos.position = target.transform.position;
+            playerPos.position = target.position;
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

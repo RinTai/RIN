@@ -9,8 +9,14 @@ public class talktive : MonoBehaviour
 
     [TextArea(1, 3)]
     public string[] Lines;
+    [TextArea(1,3)]
+    public string[] Lines2;
+    [TextArea(1,3)]
+    public string[] Lines3;
     [SerializeField]
     private int dialogAmount = 0;
+    [SerializeField]
+    private bool isEntered;
 
 
     private void Start()
@@ -20,33 +26,49 @@ public class talktive : MonoBehaviour
 
             Invoke("GetItems", waitTime);
         }
-        else if (dialogAmount >= 2)
+        else if (dialogAmount == 2)
+        {
+
+            Invoke("GetItems", waitTime);
+        }
+        else if(dialogAmount >= 3)
         {
 
             Invoke("GetItems", waitTime);
         }
     }
-    private void OnTriggerEnter2D(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            merchantDialog.instance.isDialog= true;
+            isEntered= true;
+            dialogAmount++;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            merchantDialog.instance.isDialog= false;
-            dialogAmount++;
+            isEntered= false;
         }
     }
     private void Update()
     {
-        if(merchantDialog.instance.isDialog && Input.GetKeyDown(KeyCode.Escape) &&
+        if(isEntered && Input.GetKeyDown(KeyCode.Space) &&
             merchantDialog.instance.dialogBox.activeInHierarchy == false)
         {
-            merchantDialog.instance.showDialog(Lines);
+            if(dialogAmount == 1)
+            {
+                merchantDialog.instance.showDialog(Lines);
+            }
+            else if(dialogAmount == 2)
+            {
+                merchantDialog.instance.showDialog(Lines2);
+            }
+            else if(dialogAmount >= 3)
+            {
+                merchantDialog.instance.showDialog(Lines3);
+            }
         }
     }
 }
